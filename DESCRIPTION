@@ -1,0 +1,24 @@
+Package: HematoMap
+Version: 1.0.0
+Date: 2023-04-23
+Title: Cell Mapping for Hematopoiesis Single Cell RNAseq
+Description: A toolkit for cell anno and cell mapping of single cell RNAseq in hematopoiesis.
+Authors@R: c(
+    person("Yuting", "Dai", role = c("aut", "cre"), email = "dyt12423@rjh.com.cn"),
+    person(given = "Wen", family = "Ouyang", email = "wen4862513@sjtu.edu.cn", role = c("ctb"))
+  )
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Depends: R (>= 4.0.0), methods
+Imports: dplyr, data.table, ggnewscale, ggplot2 (>= 3.3.0), ggtext,
+        graphics, grDevices, grid, magrittr, Matrix, pbmcapply, Seurat,
+        shiny, stats, rlang, utils
+Collate: 'zzz.R' 'AllClasses.R' 'AllGenerics.R' 'app.R' 'cosine.R'
+        'utils.R' 'fun.R' 'gg.R' 'normalize.R' 'plot.R'
+NeedsCompilation: no
+Packaged: 2023-04-23 13:21:05 UTC; daiyuting
+Author: Yuting Dai [aut, cre],
+  Wen Ouyang [ctb]
+Maintainer: Yuting Dai <dyt12423@rjh.com.cn>
