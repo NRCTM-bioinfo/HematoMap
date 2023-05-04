@@ -3,7 +3,7 @@
 
 `HematoMap` is a comprehensive R package that can provide a visual representation of the cellular hematopoietic hierarchy of human bone marrow. It is a mapping tool that integrates information from single-cell based gene expression data and generate a unified model of hematopoietic cell differentiation. `HematoMap` allows researchers to explore the relationships between different hematopoietic cell types (such as HSC/MPP, CML and CLP) and interpret normal hematopoiesis cellular compositions. 
 
-See the tutorial of CytoTree, please visit [Tutorial of HematoMap](https://nrctm-bioinfo.github.io/HematoMap/index.html).
+See the tutorial of `HematoMap`, please visit [Tutorial of HematoMap](https://nrctm-bioinfo.github.io/HematoMap/index.html).
 
 ## Installation
 
