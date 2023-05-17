@@ -104,6 +104,7 @@ CreateSubclusterObject.matrix <- function(object, meta.data, ...){
 #' @param force.run logical.\cr Force to run standard Seurat workflow. Default is FALSE.
 #'
 #' @return Return Seurat object with normalizing, scaling, PCA, clustering.
+#' @export
 #'
 runSeuratWorkflow <- function(object, assay = "RNA", force.run = F){
   if(length(object@commands$NormalizeData.RNA) == 0 || force.run)
