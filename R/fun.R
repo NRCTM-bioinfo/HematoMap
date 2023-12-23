@@ -54,10 +54,16 @@ CreateSubclusterObject.Seurat <- function(object, assay = "RNA", reduction = "um
 
   # Subcluster - MeanExpr
   cell.subcluster.table <- table(cell.subcluster)
-  total.exp.subcluster <- pbmclapply(names(cell.subcluster.table), function(cell.subcluster.name){ # i = 1
+  total.exp.subcluster <- pbmclapply(names(cell.subcluster.table), function( cell.subcluster.name ) { # i = 1
     sub.cells <- names(cell.subcluster)[cell.subcluster %in% cell.subcluster.name]
     # FetchData(object = object, cells = sub.cells, var = rownames(object), slot = "data") # slow
-    cluster.mat <- object@assays[[assay]]@data[, sub.cells, drop = F]
+    if ( as.numeric( unlist(packageVersion("Seurat"))  ) [1] <= 4 ) {
+      cluster.mat <- object@assays[[assay]]@data[, sub.cells, drop = F]
+    } else if ( as.numeric( unlist(packageVersion("Seurat"))  ) [1] == 5 ) {
+      cluster.mat <- object@assays[[assay]]["data"][, sub.cells, drop = F]
+    } else {
+      cluster.mat <- object@assays[[assay]]@data[, sub.cells, drop = F]
+    }
     rowMeans(cluster.mat)
   }, mc.cores = n.core) %>% do.call(what = "rbind") %>% t()
   colnames(total.exp.subcluster) <- names(cell.subcluster.table)
