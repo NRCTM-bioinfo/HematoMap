@@ -22,7 +22,7 @@ CreateSubclusterObject(object, ...)
 \method{CreateSubclusterObject}{matrix}(object, meta.data, ...)
 }
 \arguments{
-\item{object}{Suerat, matrix.\cr Seurat object or sub-cluster expression matrix.}
+\item{object}{Seurat, matrix.\cr Seurat object or sub-cluster expression matrix.}
 
 \item{...}{ANY.\cr Arguments passed to other methods.}
 

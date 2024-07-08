@@ -241,12 +241,12 @@ ggradar <- function(dat, axis.x.expand = 0.05,
               aes_(x = ~x, y = ~y, label = ~text, hjust = ~hjust, vjust = ~vjust),
               size = axis.label.size, color = axis$label$color) +
     geom_path(data = gridline$path, aes_(x = ~x, y = ~y, group = ~group),
-              colour = "grey90", size = 0.5*0.47, linetype = 1) +
+              colour = "grey90", linewidth = 0.5*0.47, linetype = 1) +
     geom_path(data = axis$path, aes_(x = ~x, y = ~y, group = ~axis.no), 
-              colour = "grey90", size = 0.5*0.47, linetype = 1)
+              colour = "grey90", linewidth = 0.5*0.47, linetype = 1)
   
   p <- p + geom_path(data = group$path, aes_(x = ~x, y = ~y, group = group$path[,1], colour = group$path[,1]), 
-                     size =0.5*0.47) +
+                     linewidth =0.5*0.47) +
     geom_point(data = group$path, aes_(x = ~x, y = ~y, fill = group$path[,1], colour = group$path[,1]), 
                shape = 21, size = point.size) +
     geom_polygon(data = group$path, aes_(x = ~x, y = ~y, fill = group$path[,1]), alpha = 0.1, show.legend = F) +
@@ -356,12 +356,12 @@ theme_standard <- function(text.size = 7, line.size = 0.35){
   theme(plot.subtitle = element_text(size = text.size, hjust = 0.5, vjust = 0,
                                      margin = margin(b = 0.1, t = -0.04, l = 0, r = 0, unit = "cm"))) +
   theme(axis.text = element_text(size = text.size-1), title = element_text(size = text.size)) + 
-  theme(axis.line = element_line(size = line.size), axis.ticks = element_line(size = line.size)) +
+  theme(axis.line = element_line(linewidth = line.size), axis.ticks = element_line(linewidth = line.size)) +
   theme(legend.text = element_text(size = text.size-1), legend.key.size = unit(3, "mm")) +
   theme(strip.text = element_text(size = text.size),
         strip.text.x = element_text(margin = margin(.1, 0, .1, 0, "cm")),
         panel.spacing=unit(0.2, "cm")) +
-  theme(axis.line = element_line(size = line.size), axis.ticks = element_line(size = line.size)) +
+  theme(axis.line = element_line(linewidth = line.size), axis.ticks = element_line(linewidth = line.size)) +
   theme(panel.background = element_blank(), panel.grid = element_blank())
 }
 

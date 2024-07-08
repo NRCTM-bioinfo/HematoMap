@@ -227,10 +227,14 @@ runSubcluster.Seurat <- function(object, cluster.key = "seurat_clusters", cell.r
     }
     return(kmeans.subc.re)
   }
-  cell.subcluster <- pbmclapply(1:length(cell.cluster), mc.cores = n.core, .local) %>% unlist()
+  cell.subcluster <- pbmclapply(1:length(cell.cluster), mc.cores = n.core, .local, ignore.interactive = T)
+  if(length(cell.subcluster$warning)) cell.subcluster$warning <- NULL
+  cell.subcluster <- unlist(cell.subcluster)
   # sometimes the name of output may be prefixed by "value.", when running only 1 mc.cores.
-  if(any(grepl("^value.", names(cell.subcluster)), na.rm = T))
+  if(any(grepl("^value.", names(cell.subcluster)), na.rm = T)){
     names(cell.subcluster) <- sub("^value.", "", names(cell.subcluster))
+  }
+ 
   # if(n.core > 1){
   #   cell.subcluster <- pbmclapply(1:length(cell.cluster), mc.cores = n.core, .local) %>% unlist()
   # }else{
@@ -380,6 +384,52 @@ computeLassoScore <- function(data, normalize = T){
   }
   class(mat.score) <- c("HematoLasso", class(mat.score))
   return(mat.score)
+}
+
+
+
+#' Find Differentially Expressed Genes Between Sub-CellType
+#'
+#' @param hemato.subc `HematoSubCluster` object.\cr An object representing hematopoietic subclusters.
+#' @param seurat.obj `Seurat` object.\cr A Seurat object containing single-cell RNA-seq data.
+#' @param ref.subc character.\cr Reference subpopulation for comparison. Default is 'HSC/MPP'.
+#' @param target.subc character.\cr Target subpopulation for comparison. Default is 'LMPP'.
+#'
+#' @return A data frame of differentially expressed genes between the reference and target sub-celltype.
+#' @export
+#'
+findDiffBetweenSubc <- function(
+    hemato.subc, seurat.obj, 
+    ref.subc = c('HSC/MPP','LMPP','CLP','CMP','MDP','GMP','CDP','MEP','pro-Mono','CD14 Mono','CD16 Mono',
+                 'pre-DC','pDC','cDC1','mo-DC','MKP','MK','pro-Ery1','pro-Ery2','Ery','pre-pro-B','Early pro-B',
+                 'Early cycling pro-B','Late pro-B','Late cycling pro-B','pre-B','Immature B','Naive B','Memory B 1',
+                 'Memory B 2','CD8 Tnaive','CD8 Teff','CD8 Tex','CD8 Tdpe','CD8 Tmpe','CD4 Tnaive','CD4 Tem',
+                 'CD4 Treg','NK','NK-XCL1','cycling NK','cycling NK/T'), 
+    target.subc = c('LMPP','CLP','CMP','MDP','GMP','CDP','MEP','pro-Mono','CD14 Mono','CD16 Mono',
+                    'pre-DC','pDC','cDC1','mo-DC','MKP','MK','pro-Ery1','pro-Ery2','Ery','pre-pro-B','Early pro-B',
+                    'Early cycling pro-B','Late pro-B','Late cycling pro-B','pre-B','Immature B','Naive B','Memory B 1',
+                    'Memory B 2','CD8 Tnaive','CD8 Teff','CD8 Tex','CD8 Tdpe','CD8 Tmpe','CD4 Tnaive','CD4 Tem',
+                    'CD4 Treg','NK','NK-XCL1','cycling NK','cycling NK/T')
+){
+  
+  ref.subc = match.arg(ref.subc)
+  target.subc = match.arg(target.subc)
+  if (ref.subc == target.subc) stop("The 'target.subc' should be different from 'ref.subc'.")
+  if(!inherits(hemato.subc, "HematoSubCluster")) stop("hemato.subc should be an instance of HematoSubCluster.")
+  if(!inherits(seurat.obj, "Seurat")) stop("seurat.obj should be an instance of Seurat.")
+  
+  like.mat <- computeThetaLike(hemato.subc = hemato.subc, cell.subc = rownames(hemato.subc@meta.data))$like.mat
+  idx <- apply(like.mat, 2, which.max)
+  anno.idx <- setNames(remove.subc.suffix(rownames(like.mat)[idx]), names(idx))
+  sc.cell.type <- setNames(anno.idx[hemato.subc@misc$sc.meta.data$cell_subc], rownames(hemato.subc@misc$sc.meta.data))
+  
+  ref.cells = names(sc.cell.type)[sc.cell.type %in% ref.subc]
+  target.cells = names(sc.cell.type)[sc.cell.type %in% target.subc]
+  if(length(ref.cells) == 0) stop("No cells in the data match 'ref.subc'. Please choose a different reference cell type.")
+  if(length(target.cells) == 0) stop("No cells in the data match 'target.subc'. Please choose a different target cell type.")
+  
+  assay <- DefaultAssay(object = object)
+  FindMarkers(object = seurat.obj[[assay]], cells.1 = ref.cells, cells.2 = target.cells)
 }
 
 
