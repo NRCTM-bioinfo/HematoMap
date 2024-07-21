@@ -2,7 +2,7 @@
 #' @import shiny
 ui <- fluidPage(
   navbarPage(
-    "HematoMap v1.0.0",
+    "HematoMap v1.1.0",
     # tabPanel(
     #   "tab2", fluid = TRUE
     # ),

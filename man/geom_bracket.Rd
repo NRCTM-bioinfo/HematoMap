@@ -15,7 +15,7 @@ geom_bracket(
   label = NULL,
   xmin = NULL,
   xmax = NULL,
-  size = 0.3,
+  linewidth = 0.3,
   label.size = 2.5,
   family = "",
   vjust = 0,
@@ -75,8 +75,6 @@ brackets.}
 \item{xmax}{Numeric vector with the positions of the right sides of the
 brackets.}
 
-\item{size}{The width of the lines of the bracket}
-
 \item{label.size}{The size of the label text}
 
 \item{family}{The font used for the text}
@@ -87,6 +85,8 @@ brackets.}
 horizontal becomes vertical, and vertical, horizontal.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}.}
+
+\item{size}{The width of the lines of the bracket}
 }
 \description{
 add brackets with label annotation to a ggplot. Helpers for

@@ -367,7 +367,7 @@ computeLassoScore <- function(data, normalize = T){
     data <- normalizeQuantiles(as.matrix(cbind(normal.bm.exp[id.common,,drop = F], data[id.common,,drop = F])))
   }
 
-  # lasso.cell <- c("HSC/MPP","LMPP","CLP","CMP","MDP","GMP","CDP","MEP","pro-Mono","CD14 Mono","CD16 Mono","pre-DC","pDC","cDC1","mo-DC","MKP","MK","pro-Ery1","pro-Ery2","Ery","pre-pro-B","Early pro-B","Late pro-B","pre-B","Immature B","Naive B","Memory B 1","Memory B 2","CD8 Tnaive","CD8 Teff","CD8 Tex","CD8 Tdpe","CD8 Tmpe","CD4 Tnaive","CD4 Tem","CD4 Treg","NK","NK-XCL1")
+  # lasso.cell <- c("HSC/MPP","LMPP","CLP","CMP","MDP","GMP","CDP","MEP","GMP-Mono","CD14 Mono","CD16 Mono","pre-DC","pDC","cDC1","mo-DC","MKP","MK","pro-Ery1","pro-Ery2","Ery","pre-pro-B","Early pro-B","Late pro-B","pre-B","Immature B","Naive B","Memory B 1","Memory B 2","CD8 Tnaive","CD8 Teff","CD8 Tex","CD8 Tdpe","CD8 Tmpe","CD4 Tnaive","CD4 Tem","CD4 Treg","NK","NK-XCL1")
   mat.score <- matrix(0, nrow = ncol(data), ncol = length(lasso.coef))
   rownames(mat.score) <- colnames(data)
   colnames(mat.score) <- names(lasso.coef)
@@ -400,12 +400,12 @@ computeLassoScore <- function(data, normalize = T){
 #'
 findDiffBetweenSubc <- function(
     hemato.subc, seurat.obj, 
-    ref.subc = c('HSC/MPP','LMPP','CLP','CMP','MDP','GMP','CDP','MEP','pro-Mono','CD14 Mono','CD16 Mono',
+    ref.subc = c('HSC/MPP','LMPP','CLP','CMP','MDP','GMP','CDP','MEP','GMP-Mono','CD14 Mono','CD16 Mono',
                  'pre-DC','pDC','cDC1','mo-DC','MKP','MK','pro-Ery1','pro-Ery2','Ery','pre-pro-B','Early pro-B',
                  'Early cycling pro-B','Late pro-B','Late cycling pro-B','pre-B','Immature B','Naive B','Memory B 1',
                  'Memory B 2','CD8 Tnaive','CD8 Teff','CD8 Tex','CD8 Tdpe','CD8 Tmpe','CD4 Tnaive','CD4 Tem',
                  'CD4 Treg','NK','NK-XCL1','cycling NK','cycling NK/T'), 
-    target.subc = c('LMPP','CLP','CMP','MDP','GMP','CDP','MEP','pro-Mono','CD14 Mono','CD16 Mono',
+    target.subc = c('LMPP','CLP','CMP','MDP','GMP','CDP','MEP','GMP-Mono','CD14 Mono','CD16 Mono',
                     'pre-DC','pDC','cDC1','mo-DC','MKP','MK','pro-Ery1','pro-Ery2','Ery','pre-pro-B','Early pro-B',
                     'Early cycling pro-B','Late pro-B','Late cycling pro-B','pre-B','Immature B','Naive B','Memory B 1',
                     'Memory B 2','CD8 Tnaive','CD8 Teff','CD8 Tex','CD8 Tdpe','CD8 Tmpe','CD4 Tnaive','CD4 Tem',

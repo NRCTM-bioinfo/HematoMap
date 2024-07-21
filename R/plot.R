@@ -105,7 +105,7 @@ plotMeanLike <- function(hemato.subc, top.subc = 5, group.name = "Group",
     scale_color_manual(values = color, name = NULL) +
     geom_bracket(data = dat_label, 
                  mapping = aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend, annotation = format.pval(fit$p.value)), show.legend = F, 
-                 size = 0.35, label.size = label.size, color = "#000000") +
+                 linewidth = 0.35, label.size = label.size, color = "#000000") +
     labs(x = NULL, y = "Mean Like") +
     theme_standard(text.size = text.size, line.size = line.size)
 }
@@ -233,7 +233,7 @@ plotCircleTree <- function(hemato.subc,
  
   p <- ggplot() +
     geom_segment(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, color = ~CellLink), 
-                 size = ribbon.size, lineend = "round",
+                 linewidth = ribbon.size, lineend = "round",
                  data = circle.edge[rev(which(!is.na(circle.edge$CellLink))),], na.rm = T) +
     geom_rect(aes(xmin = -95, xmax = 95, ymin = -95, ymax = 95), fill = "#FFFFFF", alpha = 0.85) +
     scale_colour_manual(values = color.panel.cell.population, guide = "none") +
@@ -242,14 +242,14 @@ plotCircleTree <- function(hemato.subc,
                  color = "#212121", show.legend = F, lineend = "round",
                  data = circle.edge[which(circle.edge$Type == 1), ]) +
     geom_segment(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, size = ~I(size), alpha = ~I(alpha)), 
-                 color = "#212121", show.legend = F, lineend = "round", size = line.size, # fixed size
+                 color = "#212121", show.legend = F, lineend = "round", linewidth = line.size, # fixed size
                  linetype = 2, data = circle.edge[which(circle.edge$Type == -1), ]) +
     geom_curve(mapping = aes_(xend = ~from.x, yend = ~from.y, x = ~to.x, y = ~to.y),
-               size = curve.size, curvature = 0.2, lineend = "round",
+               linewidth = curve.size, curvature = 0.2, lineend = "round",
                inherit.aes = FALSE, show.legend = F,
                color = "#D0D0D0", data = circle.edge[which(circle.edge$Type == 0), ] ) +
     geom_curve(mapping = aes_(xend = ~from.x, yend = ~from.y, x = ~to.x, y = ~to.y),
-               size = curve.size, curvature = -0.1, lineend = "round",
+               linewidth = curve.size, curvature = -0.1, lineend = "round",
                inherit.aes = FALSE, show.legend = F,
                color = "#D0D0D0", data = circle.edge[which(circle.edge$Type == -2), ] ) +
     new_scale("size") +
@@ -435,24 +435,24 @@ plotCircleTreeRefFeature <- function(feature, scell.data,
   
   p <- ggplot() +
     geom_segment(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, color = ~CellLink), 
-                 size = 6, lineend = "round",
+                 linewidth = 6, lineend = "round",
                  data = circle.edge[rev(which(!is.na(circle.edge$CellLink))),], na.rm = T) +
     geom_rect(aes(xmin = -95, xmax = 95, ymin = -95, ymax = 95), fill = "#FFFFFF", alpha = 0.85) +
     scale_colour_manual(values = color.panel.cell.population, guide = "none") +
     new_scale("color") +
     geom_segment(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, size = ~I(size), alpha = ~I(alpha)), 
                  color = "#212121", show.legend = F,
-                 # size = circle.edge$size[which(circle.edge$Type == 1)],
+                 # linewidth = circle.edge$size[which(circle.edge$Type == 1)],
                  data = circle.edge[which(circle.edge$Type == 1), ]) +
     geom_segment(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, size = ~I(size), alpha = ~I(alpha)), 
                  color = "#212121", show.legend = F,
                  linetype = 2, data = circle.edge[which(circle.edge$Type == -1), ]) +
     geom_curve(mapping = aes_(xend = ~from.x, yend = ~from.y, x = ~to.x, y = ~to.y),
-               size = 0.05, curvature = 0.2,
+               linewidth = 0.05, curvature = 0.2,
                inherit.aes = FALSE, show.legend = F,
                color = "#D0D0D0", data = circle.edge[which(circle.edge$Type == 0), ] ) +
     geom_curve(mapping = aes_(xend = ~from.x, yend = ~from.y, x = ~to.x, y = ~to.y),
-               size = 0.05, curvature = -0.1, 
+               linewidth = 0.05, curvature = -0.1, 
                inherit.aes = FALSE, show.legend = F,
                color = "#D0D0D0", data = circle.edge[which(circle.edge$Type == -2), ] ) +
     new_scale("size") +
@@ -818,7 +818,7 @@ plotLassoTree <- function(mat.score,
   
   p <- ggplot() +
     geom_stairstep(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, color = ~CellLink), 
-                   size = ribbon.size, lineend = "round",
+                   linewidth = ribbon.size, lineend = "round",
                    data = cluster.edge[which(!is.na(cluster.edge$CellLink)),], na.rm = T) +
     geom_rect(aes(xmin = 0.5, xmax = 12.5, ymin = 0.5, ymax = 9.5), fill = "#FFFFFF", alpha = 0.9) +
     scale_colour_manual(values = color.panel.cell.population, guide = "none") +
@@ -827,7 +827,7 @@ plotLassoTree <- function(mat.score,
                    color = "#212121", lineend = "round", alpha = line.alpha,
                    data = cluster.edge[cluster.edge$value == 1,], linetype = 1) +
     geom_stairstep(mapping = aes_(x = ~from.x, y = ~from.y, xend = ~to.x, yend = ~to.y, size = ~I(size)), 
-                   color = "#212121", lineend = "round", alpha = line.alpha, size = 0.4,
+                   color = "#212121", lineend = "round", alpha = line.alpha, linewidth = 0.4,
                    data = cluster.edge[cluster.edge$value == -1,], linetype = 2) +
     scale_y_continuous(expand = c(0, 0)) +
     scale_x_continuous(expand = c(0, 0)) +
@@ -896,10 +896,10 @@ plotLassoLollipop <- function(mat.score, point.size = 3, line.size = 0.35, text.
   
   ggplot() +
     geom_vline(xintercept = 0, size = line.size, color = "#000000") +
-    geom_linerange(data = plot.data, aes_(y = ~Cell, xmin = 0, xmax = ~value), size = line.size) +
+    geom_linerange(data = plot.data, aes_(y = ~Cell, xmin = 0, xmax = ~value), linewidth = line.size) +
     geom_point(data = plot.data, aes_(x = ~value, y = ~Cell, color = ~Cell, size = ~abs(value)), 
                stat = "identity", show.legend = F) +
-    geom_vline(xintercept = c(-0.32, 0.32), linetype = "dashed", size = line.size, color = "#555555") +
+    geom_vline(xintercept = c(-0.32, 0.32), linetype = "dashed", linewidth = line.size, color = "#555555") +
     scale_color_manual(values = color.panel.cell.type[names(color.panel.cell.type) %in% plot.data$Cell], name = NULL) +
     scale_size(range = c(0.01, point.size)) +
     labs(y = NULL, x = "Normalized Lasso Score") +

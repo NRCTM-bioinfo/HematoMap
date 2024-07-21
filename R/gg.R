@@ -112,7 +112,7 @@ geom_bracket <- function(mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE,
                          label = NULL, xmin = NULL, xmax = NULL,
-                         size = 0.3, label.size = 2.5, family="", vjust = 0,
+                         linewidth = 0.3, label.size = 2.5, family="", vjust = 0,
                          coord.flip = FALSE,
                          ...) {
 
@@ -120,7 +120,7 @@ geom_bracket <- function(mapping = NULL, data = NULL, stat = "identity",
     stat = stat, geom = GeomBracket, mapping = mapping,  data = data,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
-      size = size, label.size = label.size,
+      linewidth = linewidth, label.size = label.size,
       family = family, na.rm = na.rm, coord.flip = coord.flip,
       ...
     )
@@ -284,7 +284,7 @@ GeomBracket <- ggplot2::ggproto("GeomBracket", ggplot2::Geom,
                                 required_aes = c("x", "xend", "y", "yend", "annotation"),
                                 default_aes = ggplot2::aes(
                                   shape = 19, colour = "black", label.size = 3.88, angle = NULL, hjust = 0.5,
-                                  vjust = 0, alpha = NA, family = "", fontface = 1, lineheight = 1.2, linetype=1, size = 0.3,
+                                  vjust = 0, alpha = NA, family = "", fontface = 1, lineheight = 1.2, linetype=1, linewidth = 0.3,
                                   xmin = NULL, xmax = NULL, label = NULL,
                                 ),
                                 draw_key = ggplot2::draw_key_path,
@@ -324,7 +324,7 @@ GeomBracket <- ggplot2::ggproto("GeomBracket", ggplot2::Geom,
                                       gp = grid::gpar(
                                         col = scales::alpha(coords$colour, coords$alpha),
                                         lty = coords$linetype,
-                                        lwd = coords$size * ggplot2::.pt
+                                        lwd = coords$linewidth * ggplot2::.pt
                                       )
                                     )
                                   )
@@ -372,7 +372,7 @@ color.panel.cell.type <- c(
   "CMP" = "#FDDBB8",  "MDP" = "#F9A62C","GMP" = "#F6A7DF",
   "CDP" = "#DDA860",
   "MEP" = "#D67B79",
-  "pro-Mono" = "#9340C4",
+  "GMP-Mono" = "#9340C4",
   "CD14 Mono" = "#ACBBE4",
   "CD16 Mono" = "#7A6FD0",
   "pre-DC" = "#E08563",
@@ -398,8 +398,8 @@ color.panel.cell.type <- c(
   )
 
 color.panel.cell.population = c(
-  "HSPCs" = "#D4211A", "Monocytes" = "#C3AEE0", 
-  "Dendritic cells"= "#DC7835", "Erythrocytes" = "#F0C7C6", 
+  "HSPCs" = "#D4211A", "Mono." = "#C3AEE0", 
+  "DC."= "#DC7835", "Ery. Mk." = "#F0C7C6", 
   "B cells" = "#1F7EE0","CD8+ T cells" = "#57B170","CD4+ T cells" = "#ADC969",
   "NK cells" = "#7FA8B0"
   # "Stromal" = "#C1B39B"
